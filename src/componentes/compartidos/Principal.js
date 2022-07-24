@@ -14,7 +14,7 @@ function Principal({ children }) {
               <NuevaSVG className="h-8 w-8 "/>
             </Vinculo>
         </aside>
-        <main className={estilos.main}>
+        <main className={estilos.main + " nm-convex-gray-100"}>
             { children }
         </main>
       </div>
