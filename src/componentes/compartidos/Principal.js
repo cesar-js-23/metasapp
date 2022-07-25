@@ -10,7 +10,7 @@ function Principal({ children }) {
             <Vinculo  href="/lista" texto="Lista de Metas">
               <ListaSVG className='h-8 w-8'/>
             </Vinculo>
-            <Vinculo href="/crear" texto="Nueva Meta">
+            <Vinculo href="/nueva" texto="Nueva Meta">
               <NuevaSVG className="h-8 w-8 "/>
             </Vinculo>
         </aside>

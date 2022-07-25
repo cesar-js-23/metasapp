@@ -3,6 +3,8 @@ import './Encabezado.css';
 // import {ReactComponent as Perfil } from '../../img/img1.png';
 import {ReactComponent as PerfilSVG} from '../../img/customer.svg';
 import {ReactComponent as LogoSVG } from '../../img/fire.svg';
+
+import { Link } from 'react-router-dom';
 // import foto from '../../img/medical.svg';
 // import perfil from '../../img/customer.svg';
 
@@ -13,7 +15,7 @@ function Encabezado() {
             {/* <Logo /> */}
             {/* <img className="logo" src={foto}/>   */}
             <LogoSVG className="logo"/>
-            <a href="/" className="app">Metas App</a>          
+            <Link to="/" className="app">Metas App</Link>          
         </div>
         <nav className="vinculo">
             {/* <Perfil /> */}
