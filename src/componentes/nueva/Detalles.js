@@ -23,18 +23,16 @@ function Detalles() {
     const onChange = (event,prop) => {
         setForm(estado => ({...estado,[prop]:event.target.value}));
     }
-
+    const metaMemoria = estado.objetos[id];
     useEffect(() => {
-      const metaMemoria = estado.objetos[id];
-      if(!id){
-        return;
-      }
+      // 
+      if(!id) return;      
       if(!metaMemoria){
         return navegar('/lista');
       }
 
-      setForm(estado.objetos[id]); 
-    },[id]);
+      setForm(metaMemoria); 
+    },[id,metaMemoria]);
 
     const navegar = useNavigate();
 
@@ -142,6 +140,7 @@ const eliminar = () => {
           </label>
         </form>
         <div className={estilos.botones} >
+          {console.log(id)}
           {!id && <button className="boton boton--negro" onClick={crear}>Crear</button>}
           {id && <button className="boton boton--negro" onClick={actualizar}>Actualizar</button>}
           {id && <button className="boton boton--rojo" onClick={eliminar}>eliminar</button>}

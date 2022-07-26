@@ -39,15 +39,25 @@ import Meta from "./Meta";
 
 function Lista() {
 
-    const [estado,enviar] = useContext((Contexto));
+    // const [estado] = useContext((Contexto));
 
-    return ( 
-        <>
-            {/* {metas.map(meta => <Meta key={meta.id} {...meta}></Meta>)}   */}
-            {estado.orden.map(id => <Meta key={id} {...estado.objetos[id]}></Meta>)}
-            <Outlet />
-        </>      
-     );
+    // return ( 
+    //     <>
+    //         {/* {metas.map(meta => <Meta key={meta.id} {...meta}></Meta>)}   */}
+    //         {estado.orden.map(id => <Meta key={id} {...estado.objetos[id]}></Meta>)}
+    //         <Outlet />
+    //     </>      
+    //  );
+    const [metas] = useContext(Contexto);
+
+  return (
+    <>
+      {metas.orden.map((id) => (
+        <Meta key={id} {...metas.objetos[id]}></Meta>
+      ))}
+      <Outlet />
+    </>
+  );
 }
 
 export default Lista;
