@@ -35,37 +35,37 @@ export const Contexto = createContext(null);
 //     },
 //   ];
 
-  let memoria = localStorage.getItem('metas');
+  // let memoria = localStorage.getItem('metas');
 
-  const estadoInicial = memoria
-    ? JSON.parse(memoria)
-    : {
-        orden: [],
-        objetos: {}
-    };
+  // const estadoInicial = memoria
+  //   ? JSON.parse(memoria)
+  //   : {
+  //       orden: [],
+  //       objetos: {}
+  //   };
 
-  // const estadoInicial = {
-  //   orden: [],
-  //   objetos: {}
-  // }
+  const estadoInicial = {
+    orden: [],
+    objetos: {}
+  }
 
   function reductor(estado, accion){
     switch(accion.tipo){
-        case 'colocar':{
-            const metas = accion.metas;
-            const nuevoEstado = {
-                orden: metas.map(meta => meta.id),
-                objetos:metas.reduce((objeto,meta) => ({...objeto, [meta.id]: meta}),{})
-            };
-            localStorage.setItem('metas',JSON.stringify(nuevoEstado));
-            console.log('Bebito Fiu fiu2',nuevoEstado);
-            return nuevoEstado;
+      case "colocar": {
+        const metas = accion.metas;
+        const nuevoEstado = {
+          orden: metas.map((meta) => meta.id),
+          objetos: metas.reduce(
+            (objeto, meta) => ({ ...objeto, [meta.id]: meta }),
+            {}
+          ),
+        };
+        // localStorage.setItem('metas', JSON.stringify(nuevoEstado))
+        return nuevoEstado;
         };
         case 'crear':{
-            // const id = accion.meta.id;
-            console.log('acction',accion)
-            console.log('acction de meta',accion.meta)
-            const id = String(Math.random());            
+            const id = accion.meta.id;
+            // const id = String(Math.random());            
             const nuevoEstado = {
               orden: [...estado.orden, id],
               objetos: {
@@ -73,14 +73,11 @@ export const Contexto = createContext(null);
                 ...estado.objetos,
                 // [id]: accion.meta,
                 // [id]: id,
-                [id]: accion.meta,
+                [id] : {id, ...accion.meta }
               },
             };
-            nuevoEstado.objetos[id].id = id;
-            console.log('pruebita',nuevoEstado.objetos[id].detalles)            
-            localStorage.setItem('metas',JSON.stringify(nuevoEstado));
-            console.log('Bebito Fiu fiu',nuevoEstado);
-            console.log('PORFAVOR SAL ID: ', id)
+            // nuevoEstado.objetos[id].id = id;         
+            // localStorage.setItem('metas',JSON.stringify(nuevoEstado));
             return nuevoEstado;
         };
         case 'actualizar':{
@@ -91,20 +88,23 @@ export const Contexto = createContext(null);
               ...accion.meta
               }
           
-          const nuevoEstado = { ... estado };
-          localStorage.setItem('metas',JSON.stringify(nuevoEstado));
+          const nuevoEstado = { ...estado };
+          // localStorage.setItem('metas',JSON.stringify(nuevoEstado));
           return nuevoEstado;
       };
       case 'eliminar':{
         // const id = accion.meta.id;
+        
         const id = accion.id;
+        console.log('1',id);
+        console.log('2',accion);
         const nuevoOrden = estado.orden.filter( item => item !== id );
         delete estado.objetos[id];
         const nuevoEstado = {
           orden: nuevoOrden,
           objetos: estado.objetos
         };
-        localStorage.setItem('metas',JSON.stringify(nuevoEstado));
+        // localStorage.setItem('metas',JSON.stringify(nuevoEstado));
         return nuevoEstado;
     };
     default:

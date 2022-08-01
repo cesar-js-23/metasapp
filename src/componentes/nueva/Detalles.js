@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { Contexto } from '../../servicios/Memoria';
+import { actualizarMeta, crearMeta, eliminarMeta } from '../../servicios/Pedidos';
 import estilos from './Detalles.module.css';
 
 function Detalles() {
@@ -37,8 +38,12 @@ function Detalles() {
     const navegar = useNavigate();
 
     const crear = async() => {
-        // console.log('crear',form)
-        enviar({ tipo: 'crear', meta: form});
+        // // console.log('crear',form)
+        // const nuevaMeta = await crearMeta();
+        // enviar({ tipo: 'crear', meta: nuevaMeta});
+        // navegar('/lista');
+        const nuevaMeta = await crearMeta(form);
+        enviar({ tipo: 'crear', meta: nuevaMeta});
         navegar('/lista');
     };
 
@@ -47,14 +52,20 @@ function Detalles() {
       navegar("/lista");
   };
 
-    const actualizar = () => {
-    enviar({ tipo: 'actualizar', meta: form});
-    // console.log('crear',form)      
+    const actualizar = async() => {
+    // enviar({ tipo: 'actualizar', meta: form});
+    // // console.log('crear',form)      
+    // navegar("/lista");
+    const metaActualizada = await actualizarMeta(form);
+    enviar({ tipo: 'actualizar', meta: metaActualizada});
     navegar("/lista");
 };
 
-const eliminar = () => {
-  enviar({ tipo: 'eliminar',id});
+const eliminar = async() => {
+
+  // const idEliminar = await eliminarMeta(form.id);
+  await eliminarMeta(form.id);
+  enviar({ tipo: 'eliminar',id: form.id});
   // console.log('crear',form)      
   navegar("/lista");
 };
@@ -140,7 +151,6 @@ const eliminar = () => {
           </label>
         </form>
         <div className={estilos.botones} >
-          {console.log(id)}
           {!id && <button className="boton boton--negro" onClick={crear}>Crear</button>}
           {id && <button className="boton boton--negro" onClick={actualizar}>Actualizar</button>}
           {id && <button className="boton boton--rojo" onClick={eliminar}>eliminar</button>}

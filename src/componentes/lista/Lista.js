@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import { Contexto } from "../../servicios/Memoria";
 import Meta from "./Meta";
 
@@ -36,28 +36,58 @@ import Meta from "./Meta";
 //   },
 // ];
 
-
 function Lista() {
 
-    // const [estado] = useContext((Contexto));
+  const [estado] = useContext(Contexto);
 
-    // return ( 
-    //     <>
-    //         {/* {metas.map(meta => <Meta key={meta.id} {...meta}></Meta>)}   */}
-    //         {estado.orden.map(id => <Meta key={id} {...estado.objetos[id]}></Meta>)}
-    //         <Outlet />
-    //     </>      
-    //  );
-    const [metas] = useContext(Contexto);
+  // useEffect( () => {
+  //   const metas =  pedirMetas();
+  //   enviar({ tipo: 'colocar', metas });
+  // },[]);
+
+  // useEffect( () => {
+  //   (async function () {
+  //     const metas = await pedirMetas();
+  //     console.log('mmetas',metas)
+  //     enviar({ tipo: "colocar", metas });
+  //   })();
+  // }, [enviar]);
 
   return (
     <>
-      {metas.orden.map((id) => (
-        <Meta key={id} {...metas.objetos[id]}></Meta>
+      {estado.orden.map((id) => (
+        <Meta key={id} {...estado.objetos[id]}></Meta>
       ))}
       <Outlet />
     </>
   );
-}
+      }
+
+// function Lista() {
+
+//   const [estado] = useContext(Contexto);
+
+  
+
+//     // const [estado] = useContext((Contexto));
+
+//     // return ( 
+//     //     <>
+//     //         {/* {metas.map(meta => <Meta key={meta.id} {...meta}></Meta>)}   */}
+//     //         {estado.orden.map(id => <Meta key={id} {...estado.objetos[id]}></Meta>)}
+//     //         <Outlet />
+//     //     </>      
+//     //  );
+//     // const [metas] = useContext(Contexto);
+
+//   return (
+//     <>
+//       {estado.orden.map((id) => (
+//         <Meta key={id} {...estado.objetos[id]}></Meta>
+//       ))}
+//       <Outlet />
+//     </>
+//   );
+// }
 
 export default Lista;
